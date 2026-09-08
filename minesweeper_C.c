@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <wctype.h>
+#include <wctype.h> //tentativa de interação com input de teclado
+
+//para melhor leitura do codigo
 #define VAZIO 0
 #define BOMBA 1
 #define PLAYER 2
 #define CHEGADA 3
 #define PASSADO 4
 
-char campo[10][50];
-char CBomba[10][50];
-char elementos[] = {"OXPCo"};
+//matrizes e lista global (na epoca tinha que ser global)
+char campo[10][50]; //campo exibido para o player
+char CBomba[10][50]; //campo que o programa vai ver
+char elementos[] = {"OXPCo"}; //lista com elementos interativos
 
+//cabeçalho das funções
 void inicializar(int QBtotal);
 void teste_campo();
 int Bperto(int ip, int ij);
