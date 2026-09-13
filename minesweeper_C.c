@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <wctype.h> //tentativa de interação com input de teclado
+//#include <wctype.h> //interação com input de teclado, vamos por partes
 
 //para melhor leitura do codigo
 #define VAZIO 0
@@ -10,22 +10,34 @@
 #define CHEGADA 3
 #define PASSADO 4
 
-//matrizes e lista global (na epoca tinha que ser global)
-char campo[10][50]; //campo exibido para o player
-char CBomba[10][50]; //campo que o programa vai ver
-char elementos[] = {"OXPCo"}; //lista com elementos interativos
+typedef struct obj_campo{
+    char data;
+    int x;
+    int y;
+    struct obj_campo *norte;
+    struct obj_campo *nordeste;
+    struct obj_campo *noroeste;
+    struct obj_campo *sul;
+    struct obj_campo *sudeste;
+    struct obj_campo *sudoeste;
+    struct obj_campo *leste;
+    struct obj_campo *oeste;
+}obj_campo;
 
 //cabeçalho das funções
-void inicializar(int QBtotal);
+void inicializar();
 void teste_campo();
 int Bperto(int ip, int ij);
 
 int main()
 {
+    obj_campo *com_camp = NULL;
+    obj_campo *fim_camp = NULL;
+    obj_campo *atual = NULL;
     int QBtotal = 120, Bombas, ip=0, jp=0;
     int mov;
 
-    inicializar(QBtotal);
+    inicializar();
     do
     {
         teste_campo();
@@ -67,47 +79,9 @@ int main()
     return 0;
 }
 
-void inicializar(int QBtotal)
+void inicializar()
 {
-    int i, j, QIbomba;
-
-    QIbomba = 0;
-
-    srand(time(NULL)); //sem isso o campo de bombas é sempre o mesmo
-
-    //cria os campos
-    for(i=0; i<10; i++)
-    {
-        for(j=0; j<50; j++)
-        {
-            campo[i][j] = elementos[VAZIO];
-            CBomba[i][j] = elementos[VAZIO];
-        }
-    }
-
-    //define alguns elementos padrão
-    campo[0][0] = elementos[PLAYER];
-    campo[9][49] = elementos[CHEGADA];
-    CBomba[9][49] = elementos[CHEGADA];
-
-    //preenche o campo de bombas
-    while(QIbomba<QBtotal)
-    {
-        //randomiza numeros
-        i = rand()%10;
-        j = rand()%50;
-        //cria uma area sem bombas ao redor do player no começo e no final
-        if((i==0&&j==0)||(i==9&&j==49)||(i==1&&j==1)||(i==0&&j==1)||(i==1&&j==0)||(i==9&&j==48)||(i==8&&j==49))
-            continue;
-        //não põe duas bombas no mesmo lugar
-        if(CBomba[i][j]==elementos[BOMBA])
-            continue;
-        else
-        {
-            CBomba[i][j] = elementos[BOMBA];
-            QIbomba++;
-        }
-    }
+    
 }
 
 void teste_campo()
