@@ -34,7 +34,7 @@ int main()
     obj_campo *com_camp = NULL;
     obj_campo *fim_camp = NULL;
     obj_campo *atual = NULL;
-    int QBtotal = 120, Bombas, ip=0, jp=0;
+    int Bombas, ip=0, jp=0;
     int mov;
 
     inicializar();
@@ -79,9 +79,26 @@ int main()
     return 0;
 }
 
-void inicializar()
+obj_campo *inicializar()
 {
-    
+    int x = 1, y = 1, QBtotal = 120, tam_camp = 10*50-6, pctg_bomba;
+    obj_campo *novo = (obj_campo *)malloc(sizeof(obj_campo));
+
+    if(novo == NULL){
+        printf("Erro ao alocar memoria!\n");
+        exit(1);
+    }
+
+    do{
+        novo->x = x;
+        novo->y = y;
+        if(x == 1 && y == 1 || x == 2 && y == 1 || x == 1 && y == 2 || x == 49 && y == 10 || x == 50 && y == 9){
+            novo->data = VAZIO;
+        }else{
+            
+        }
+
+    }while(x)
 }
 
 void teste_campo()
